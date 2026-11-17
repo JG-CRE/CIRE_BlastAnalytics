@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Broker Links | CIRE Partners</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#1b263c;--body:#444042;--muted:#7a7672;--line:#e4e2de;--bg:#f6f5f2}
+  *{box-sizing:border-box} body{margin:0;font-family:"Nunito",system-ui,sans-serif;background:var(--bg);color:var(--body)}
+  .top{background:var(--navy);color:#fff;height:72px;display:flex;align-items:center}
+  .wrap{max-width:900px;margin:0 auto;padding:0 28px;width:100%}
+  .brand b{display:block;font-weight:800;letter-spacing:.22em;font-size:18px}
+  .brand span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;opacity:.65}
+  h1{font-size:28px;font-weight:800;color:var(--navy);margin:40px 0 6px}
+  p.sub{margin:0 0 24px;color:var(--muted)}
+  .card{background:#fff;border:1px solid var(--line);border-radius:4px}
+  form{display:flex;gap:10px;padding:24px}
+  input{flex:1;font:inherit;padding:11px 14px;border:1px solid var(--line);border-radius:3px}
+  .btn{font:inherit;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border-radius:3px;border:1px solid var(--navy);background:var(--navy);color:#fff;cursor:pointer;white-space:nowrap}
+  .btn.ghost{background:#fff;color:var(--navy)}
+  .row{display:flex;align-items:center;gap:16px;padding:18px 24px;border-bottom:1px solid #f0eeea}
+  .row:last-child{border-bottom:0}
+  .row div{flex:1;min-width:0}
+  .row b{display:block;color:var(--navy);font-size:16px}
+  .row small{color:var(--muted)}
+  .err{color:#b3261e;padding:0 24px 20px;margin:0}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap brand"><b>CIRE PARTNERS</b><span>Broker report links</span></div></header>
+<main class="wrap">
+  <h1>Broker links</h1>
+  <p class="sub">Each broker gets one link. Copy it and send it to them once. New blasts show up on it automatically.</p>
+  <div class="card" id="box">
+    <form id="f"><input type="password" id="pw" placeholder="Admin password" autofocus><button class="btn">Show links</button></form>
+    <p class="err" id="err" hidden></p>
+  </div>
+</main>
+<script>
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+document.getElementById("f").onsubmit = async (e) => {
+  e.preventDefault();
+  const err = document.getElementById("err");
+  err.hidden = true;
+  const r = await fetch("/api/admin", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: document.getElementById("pw").value }) });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) { err.textContent = j.error || "Something went wrong."; err.hidden = false; return; }
+  document.getElementById("box").innerHTML = j.lists.map((l, i) => `
+    <div class="row">
+      <div><b>${esc(l.name)}</b><small>${l.contacts.toLocaleString()} contacts · ${l.campaigns} campaigns</small></div>
+      <a class="btn ghost" href="${esc(l.link)}" target="_blank" rel="noopener">Open</a>
+      <button class="btn" data-i="${i}">Copy link</button>
+    </div>`).join("") || `<div class="row"><div>No lists found in Mailchimp.</div></div>`;
+  document.querySelectorAll("button[data-i]").forEach((b) => b.onclick = async () => {
+    await navigator.clipboard.writeText(j.lists[b.dataset.i].link);
+    b.textContent = "Copied ✓"; setTimeout(() => (b.textContent = "Copy link"), 1500);
+  });
+};
+</script>
+</body>
+</html>

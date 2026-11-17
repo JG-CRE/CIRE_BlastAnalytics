@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Campaign Report | CIRE Partners</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1b263c; --navy-2:#24314c; --ink:#1b263c; --body:#444042; --muted:#7a7672;
+    --line:#e4e2de; --bg:#f6f5f2; --card:#fff; --accent:#8a9bb8;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:"Nunito",system-ui,sans-serif;background:var(--bg);color:var(--body);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+
+  /* Header */
+  .top{background:var(--navy);color:#fff}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;flex-direction:column;line-height:1.05;text-decoration:none}
+  .brand b{font-weight:800;letter-spacing:.22em;font-size:18px}
+  .brand span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;opacity:.65;margin-top:5px}
+  .top .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+
+  /* Hero */
+  .hero{background:var(--navy);color:#fff;padding:44px 0 92px;border-top:1px solid rgba(255,255,255,.08)}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+  h1{font-size:clamp(26px,3.6vw,40px);font-weight:800;line-height:1.15;margin:12px 0 22px;max-width:860px;letter-spacing:-.01em}
+  .meta{display:flex;flex-wrap:wrap;gap:10px 36px;font-size:14px}
+  .meta div{display:flex;flex-direction:column;gap:3px}
+  .meta small{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.55}
+
+  /* KPIs */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--card);border-radius:4px;box-shadow:0 10px 30px rgba(27,38,60,.10);margin-top:-56px;position:relative}
+  .kpi{padding:26px 28px;border-right:1px solid var(--line)}
+  .kpi:last-child{border-right:0}
+  .kpi small{display:block;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .kpi .v{font-size:34px;font-weight:800;color:var(--ink);margin:8px 0 2px;font-variant-numeric:tabular-nums}
+  .kpi .s{font-size:13px;color:var(--muted)}
+  .bar{height:4px;background:var(--line);border-radius:2px;margin-top:12px;overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--navy)}
+
+  /* Sections */
+  section{margin:44px 0}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+  h2{font-size:22px;font-weight:800;color:var(--ink);margin:0}
+  h2 + p{margin:4px 0 0;font-size:14px;color:var(--muted)}
+  .tools{display:flex;gap:10px}
+  input[type=search]{font:inherit;font-size:14px;padding:10px 14px;border:1px solid var(--line);border-radius:3px;background:#fff;width:240px;color:var(--ink)}
+  input[type=search]:focus{outline:2px solid var(--accent);outline-offset:-1px}
+  .btn{font:inherit;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:10px 18px;border-radius:3px;border:1px solid var(--navy);background:var(--navy);color:#fff;cursor:pointer}
+  .btn:hover{background:var(--navy-2)}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{text-align:left;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:14px 20px;border-bottom:1px solid var(--line);background:#fbfaf8;cursor:pointer;user-select:none;white-space:nowrap}
+  th.num,td.num{text-align:right}
+  th .arr{opacity:.4;margin-left:4px}
+  th.on .arr{opacity:1}
+  td{padding:13px 20px;border-bottom:1px solid #f0eeea;color:var(--body);font-variant-numeric:tabular-nums}
+  tr:last-child td{border-bottom:0}
+  tbody tr:hover td{background:#faf9f7}
+  td.name{font-weight:700;color:var(--ink)}
+  td.email{color:var(--muted)}
+  .pill{display:inline-block;min-width:26px;text-align:center;padding:2px 8px;border-radius:20px;background:#eef1f6;color:var(--navy);font-weight:700;font-size:13px}
+  .more{padding:14px 20px;text-align:center;border-top:1px solid var(--line)}
+  .more button{font:inherit;font-weight:700;font-size:13px;color:var(--navy);background:none;border:0;cursor:pointer;text-decoration:underline}
+  .empty{padding:34px 20px;text-align:center;color:var(--muted);font-size:14px}
+  .url{max-width:560px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+
+  /* States */
+  .state{max-width:520px;margin:90px auto;text-align:center;padding:0 24px}
+  .state h2{margin-bottom:8px}
+  .spinner{width:34px;height:34px;border:3px solid var(--line);border-top-color:var(--navy);border-radius:50%;animation:s 0.8s linear infinite;margin:0 auto 18px}
+  @keyframes s{to{transform:rotate(360deg)}}
+
+  .back{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.06em;color:#fff;opacity:.7;text-decoration:none;margin-bottom:18px}
+  .back:hover{opacity:1}
+  tr.go{cursor:pointer}
+  td.camp b{display:block;color:var(--ink);font-weight:700}
+  td.camp span{font-size:13px;color:var(--muted)}
+  .view{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);white-space:nowrap;text-decoration:none}
+  tr.go:hover .view{text-decoration:underline}
+  footer{border-top:1px solid var(--line);margin-top:60px;padding:26px 0 40px;font-size:12px;color:var(--muted)}
+  footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+  @media (max-width:820px){
+    .kpis{grid-template-columns:repeat(2,1fr)}
+    .kpi:nth-child(2){border-right:0}
+    .kpi:nth-child(-n+2){border-bottom:1px solid var(--line)}
+    .col-co,.col-last,.col-hide{display:none}
+    input[type=search]{width:100%}
+    .tools{width:100%}
+    .top .tag{display:none}
+  }
+  @media print{
+    .tools,.more{display:none}
+    .hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="https://cirepartners.com" target="_blank" rel="noopener"><b>CIRE PARTNERS</b><span>Commercial Investment Real Estate</span></a>
+    <div class="tag">Marketing Report</div>
+  </div>
+</header>
+
+<main id="app">
+  <div class="state"><div class="spinner"></div><p>Loading report…</p></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CIRE Brokerage Services Inc. dba CIRE Partners · CA DRE #01526823</span>
+    <span id="stamp"></span>
+  </div>
+</footer>
+
+<script>
+const $ = (s, el = document) => el.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const fmt = (n) => Number(n || 0).toLocaleString("en-US");
+const pct = (r) => (Number(r || 0) * 100).toFixed(1) + "%";
+const dt = (iso, withTime) => iso ? new Date(iso).toLocaleString("en-US", withTime
+  ? { month:"short", day:"numeric", year:"numeric", hour:"numeric", minute:"2-digit" }
+  : { month:"short", day:"numeric", hour:"numeric", minute:"2-digit" }) : "—";
+
+const P = new URLSearchParams(location.search);
+let L = P.get("l"), T = P.get("t"), C = P.get("c");
+const home = `?l=${encodeURIComponent(L || "")}&t=${encodeURIComponent(T || "")}`;
+
+async function api(path) {
+  if (window.DEMO) return window.DEMO(path);
+  const r = await fetch(path);
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || "Couldn't load this page.");
+  return j;
+}
+
+function renderBroker(b) {
+  document.title = `${b.audience} | CIRE Partners`;
+  const cs = b.campaigns;
+  const sent = cs.reduce((s, c) => s + c.recipients, 0);
+  const opens = cs.reduce((s, c) => s + c.uniqueOpens, 0);
+  const avg = cs.length ? cs.reduce((s, c) => s + c.openRate, 0) / cs.length : 0;
+  $("#app").innerHTML = `
+    <div class="hero"><div class="wrap">
+      <div class="eyebrow">Email Campaign Reports</div>
+      <h1>${esc(b.audience)}</h1>
+      <div class="meta">
+        <div><small>Contacts on list</small>${fmt(b.contacts)}</div>
+        <div><small>Latest blast</small>${cs[0] ? esc(dt(cs[0].sentAt, true)) : "—"}</div>
+      </div>
+    </div></div>
+    <div class="wrap">
+      <div class="kpis">
+        <div class="kpi"><small>Campaigns</small><div class="v">${fmt(cs.length)}</div><div class="s">Blasts sent</div></div>
+        <div class="kpi"><small>Emails sent</small><div class="v">${fmt(sent)}</div><div class="s">Across all campaigns</div></div>
+        <div class="kpi"><small>Avg. open rate</small><div class="v">${pct(avg)}</div><div class="s">Per campaign</div><div class="bar"><i style="width:${avg*100}%"></i></div></div>
+        <div class="kpi"><small>Total opens</small><div class="v">${fmt(opens)}</div><div class="s">Added up across all campaigns</div></div>
+      </div>
+      <section>
+        <div class="sec-head"><div><h2>Your campaigns</h2><p>Click any campaign to see who opened it</p></div></div>
+        <div class="card">
+          ${cs.length ? `<table>
+            <thead><tr><th style="cursor:default">Campaign</th><th class="num col-hide" style="cursor:default">Sent to</th><th class="num" style="cursor:default">Opened</th><th class="num col-hide" style="cursor:default">Clicked</th><th style="cursor:default"></th></tr></thead>
+            <tbody>${cs.map(c => `<tr class="go" data-id="${esc(c.id)}">
+              <td class="camp"><b>${esc(c.title)}</b><span>${esc(dt(c.sentAt, true))}</span></td>
+              <td class="num col-hide">${fmt(c.recipients)}</td>
+              <td class="num"><b style="color:var(--ink)">${pct(c.openRate)}</b><br><span style="font-size:13px;color:var(--muted)">${fmt(c.uniqueOpens)} people</span></td>
+              <td class="num col-hide">${pct(c.clickRate)}</td>
+              <td class="num"><a class="view" href="${home}&c=${encodeURIComponent(c.id)}">View →</a></td></tr>`).join("")}</tbody>
+          </table>` : `<div class="empty">No campaigns have been sent to this list yet.</div>`}
+        </div>
+      </section>
+    </div>`;
+  document.querySelectorAll("tr.go").forEach(tr => tr.onclick = (e) => {
+    if (e.target.closest("a")) return;
+    location.search = `${home}&c=${encodeURIComponent(tr.dataset.id)}`;
+  });
+  stamp();
+}
+
+function stamp() {
+  $("#stamp").textContent = "Live data from Mailchimp · loaded " + new Date().toLocaleString("en-US", { month:"short", day:"numeric", hour:"numeric", minute:"2-digit" });
+}
+
+function renderReport(d) {
+  document.title = `${d.title} | CIRE Partners`;
+  const delivRate = d.recipients ? d.delivered / d.recipients : 0;
+  $("#app").innerHTML = `
+    <div class="hero"><div class="wrap">
+      <a class="back" href="${home}">← All campaigns</a>
+      <div class="eyebrow">Email Campaign Report</div>
+      <h1>${esc(d.title)}</h1>
+      <div class="meta">
+        <div><small>Sent</small>${esc(dt(d.sentAt, true))}</div>
+        <div><small>Audience</small>${esc(d.audience)}</div>
+        <div><small>Subject line</small>${esc(d.subject)}</div>
+      </div>
+    </div></div>
+
+    <div class="wrap">
+      <div class="kpis">
+        <div class="kpi"><small>Recipients</small><div class="v">${fmt(d.recipients)}</div><div class="s">Emails sent</div></div>
+        <div class="kpi"><small>Delivered</small><div class="v">${pct(delivRate)}</div><div class="s">${fmt(d.delivered)} inboxes reached</div><div class="bar"><i style="width:${delivRate*100}%"></i></div></div>
+        <div class="kpi"><small>Opened</small><div class="v">${pct(d.openRate)}</div><div class="s">${fmt(d.uniqueOpens)} people · ${fmt(d.totalOpens)} total opens</div><div class="bar"><i style="width:${d.openRate*100}%"></i></div></div>
+        <div class="kpi"><small>Clicked</small><div class="v">${pct(d.clickRate)}</div><div class="s">${fmt(d.uniqueClicks)} people clicked a link</div><div class="bar"><i style="width:${d.clickRate*100}%"></i></div></div>
+      </div>
+
+      <section>
+        <div class="sec-head">
+          <div><h2>Who opened</h2><p>${fmt(d.openers.length)} recipients opened this email</p></div>
+          <div class="tools">
+            <input type="search" id="q" placeholder="Search name, company or email">
+            <button class="btn" id="csv">Download CSV</button>
+          </div>
+        </div>
+        <div class="card">
+          <table>
+            <thead><tr>
+              <th data-k="name">Name<span class="arr">↕</span></th>
+              <th data-k="company" class="col-co">Company<span class="arr">↕</span></th>
+              <th data-k="email">Email<span class="arr">↕</span></th>
+              <th data-k="opens" class="num">Opens<span class="arr">↕</span></th>
+              <th data-k="last" class="num col-last">Last opened<span class="arr">↕</span></th>
+            </tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+          <div class="more" id="more" hidden><button>Show all</button></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="sec-head"><div><h2>Links clicked</h2><p>Which links in the email got clicks</p></div></div>
+        <div class="card">
+          ${d.links.length ? `<table>
+            <thead><tr><th>Link</th><th class="num">Unique</th><th class="num">Total clicks</th></tr></thead>
+            <tbody>${d.links.map(l => `<tr><td><a class="url" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.url)}</a></td><td class="num">${fmt(l.unique)}</td><td class="num">${fmt(l.clicks)}</td></tr>`).join("")}</tbody>
+          </table>` : `<div class="empty">No link clicks on this campaign yet.</div>`}
+        </div>
+      </section>
+    </div>`;
+
+  // Opens table: search + sort + show more
+  let key = "opens", dir = -1, limit = 25;
+  const rowsEl = $("#rows"), moreEl = $("#more");
+  const filtered = () => {
+    const q = $("#q").value.trim().toLowerCase();
+    return d.openers
+      .filter(o => !q || `${o.name} ${o.company} ${o.email}`.toLowerCase().includes(q))
+      .sort((a, b) => {
+        const x = a[key] ?? "", y = b[key] ?? "";
+        return (typeof x === "number" ? x - y : String(x).localeCompare(String(y))) * dir;
+      });
+  };
+  const draw = () => {
+    const list = filtered();
+    rowsEl.innerHTML = list.length ? list.slice(0, limit).map(o => `<tr>
+      <td class="name">${esc(o.name || "—")}</td>
+      <td class="col-co">${esc(o.company || "—")}</td>
+      <td class="email">${esc(o.email)}</td>
+      <td class="num"><span class="pill">${o.opens}</span></td>
+      <td class="num col-last">${esc(dt(o.last))}</td></tr>`).join("")
+      : `<tr><td colspan="5" class="empty">No matches.</td></tr>`;
+    moreEl.hidden = list.length <= limit;
+    moreEl.querySelector("button").textContent = `Show all ${fmt(list.length)}`;
+    document.querySelectorAll("th[data-k]").forEach(th => {
+      th.classList.toggle("on", th.dataset.k === key);
+      th.querySelector(".arr").textContent = th.dataset.k === key ? (dir < 0 ? "↓" : "↑") : "↕";
+    });
+  };
+  $("#q").addEventListener("input", () => { limit = 25; draw(); });
+  moreEl.querySelector("button").onclick = () => { limit = Infinity; draw(); };
+  document.querySelectorAll("th[data-k]").forEach(th => th.onclick = () => {
+    if (key === th.dataset.k) dir *= -1; else { key = th.dataset.k; dir = key === "opens" || key === "last" ? -1 : 1; }
+    draw();
+  });
+  $("#csv").onclick = () => {
+    const q = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+    const csv = ["Name,Company,Email,Opens,Last Opened", ...filtered().map(o =>
+      [o.name, o.company, o.email, o.opens, o.last ? new Date(o.last).toLocaleString("en-US") : ""].map(q).join(","))].join("\n");
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
+    a.download = `${d.title.replace(/[^\w]+/g, "-").replace(/^-|-$/g, "")}-opens.csv`;
+    a.click();
+  };
+  draw();
+  stamp();
+}
+
+async function boot() {
+  try {
+    if (!L || !T) throw new Error("This report link is incomplete. Please use the full link you were sent.");
+    const q = `l=${encodeURIComponent(L)}&t=${encodeURIComponent(T)}`;
+    if (C) renderReport(await api(`/api/report?${q}&c=${encodeURIComponent(C)}`));
+    else renderBroker(await api(`/api/broker?${q}`));
+    window.scrollTo(0, 0);
+  } catch (e) {
+    $("#app").innerHTML = `<div class="state"><h2>Report unavailable</h2><p>${esc(e.message)}</p></div>`;
+  }
+}
+boot();
+</script>
+</body>
+</html>

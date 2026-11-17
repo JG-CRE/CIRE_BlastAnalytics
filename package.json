@@ -1,0 +1,6 @@
+{
+  "name": "cire-campaign-report",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" }
+}
